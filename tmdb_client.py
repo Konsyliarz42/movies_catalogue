@@ -1,6 +1,5 @@
 import requests
-
-API_KEY = "ee51b619aa97bfee8dc90c91dda1954f"
+from main import API_KEY
 
 def get_movies_list(type_list):
     endpoint    = f"https://api.themoviedb.org/3/movie/{type_list}"
@@ -24,7 +23,7 @@ def get_single_movie(movie_id):
     response    = requests.get(endpoint, params={"api_key":API_KEY})
 
     return response.json()
-    
+
 
 def get_single_movie_cast(movie_id):
     endpoint = f"https://api.themoviedb.org/3/movie/{movie_id}/credits"
