@@ -22,9 +22,19 @@
             </div>
             
             <div class="col">
-                <div class="btn-group float-right">
-                    <button class="btn btn-outline-info dropdown-toggle" data-toggle="dropdown">{{results}}</button>
-                    <div class="dropdown-menu">
+                <div class="btn-group float-right"  id="res">
+
+                    <label for="res" class="px-2">Pokaż na stronie:</label>
+
+                    <form href="{{ url_for('homepage', list_type=selected) }}">
+                        <select name="list_type" class="custom-select d-none">
+                            <option selected >{{selected}}</option>
+                        </select>
+                        <input type="number" class="form-control" name="results" placeholder={{results}} style="width: 72px">
+                    </form>
+
+                    <button class="btn btn-outline-info dropdown-toggle dropdown-toggle-split" data-toggle="dropdown"></button>
+                    <div class="dropdown-menu dropdown-menu-right">
                         {% for elements in quantity %}
                             <a  class="dropdown-item"
                                 href="{{ url_for('homepage', list_type=selected, results=elements) }}">
@@ -32,6 +42,7 @@
                             </a>
                         {% endfor %}
                     </div>
+
                 </div>
             </div>
 
