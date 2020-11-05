@@ -1,12 +1,4 @@
-from flask import Flask, render_template, request
-import tmdb_client, os
-
-patch   = os.path.join(os.path.abspath(__file__),'../instance')
-app     = Flask(__name__, instance_relative_config=True, instance_path=patch)
-
-app.config.from_object('config')
-app.config.from_pyfile('config.py', silent=True)
-API_KEY = app.config['API_KEY']
+from . import app, request, render_template, tmdb_client
 
 @app.route('/')
 def homepage():
@@ -39,7 +31,3 @@ def movie_details(movie_id):
     movie = tmdb_client.get_single_movie(movie_id)
     cast = tmdb_client.get_single_movie_cast(movie_id)
     return render_template("movie_details.html", movie=movie, cast=cast)
-
-#================================================================
-if __name__ == '__main__':
-    app.run(debug=False)
