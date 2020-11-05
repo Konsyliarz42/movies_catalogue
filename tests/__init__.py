@@ -1,4 +1,6 @@
 import pytest, requests
 from unittest.mock import Mock
 
-from library import API_KEY, tmdb_client, app
+from library import tmdb_client, app
+
+API_KEY = ''

@@ -2,7 +2,7 @@ from . import requests, API_KEY, Mock, tmdb_client
 
 #================================================================
 def call_tmdb(endpoint):
-    url    = f"https://api.themoviedb.org/3/{endpoint}"
+    url         = f"https://api.themoviedb.org/3/{endpoint}"
     response    = requests.get(url, params={"api_key":API_KEY})
 
     response.raise_for_status()
