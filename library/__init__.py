@@ -6,6 +6,9 @@ app     = Flask(__name__, instance_relative_config=True, instance_path=patch)
 
 app.config.from_object('config')
 app.config.from_pyfile('config.py', silent=True)
-API_KEY = app.config['API_KEY']
+try:
+    API_KEY = app.config['API_KEY']
+except KeyError:
+    API_KEY = None
 
 from . import routes

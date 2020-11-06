@@ -1,13 +1,12 @@
-from . import app, pytest
+from . import app, TestCase, patch, Mock
 
-@pytest.mark.parametrize(
-    'list_type, results', (
-        ('popular', '4'), ('popular', '12'), ('popular', '20'),
-        ('now_playing', '4'), ('now_playing', '12'), ('now_playing', '20'),
-        ('top_rated', '4'), ('top_rated', '12'), ('top_rated', '20'),
-        ('upcoming', '4'), ('upcoming', '12'), ('upcoming', '20')
-))
-def test_homepage(list_type, results):
-    with app.test_client() as client:
-        response = client.get(f"/?list_type={list_type}&results={results}")
-        assert response.status_code == 200
+class TestLibrary(TestCase):
+
+    def test_homepage(self):
+        with patch("library.tmdb_client.get_movies") as mock_movie:
+            mock_movie.return_value = {'results': list()}
+
+            with app.test_client() as client:
+                response = client.get('/')
+                assert response.status_code == 200
+                mock_movie.assert_called_once_with(8, 'popular')
